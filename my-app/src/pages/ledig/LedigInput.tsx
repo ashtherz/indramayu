@@ -14,14 +14,22 @@ const LeDigInputForm: React.FC = () => {
               htmlFor="tahun"
               className="block text-sm font-medium text-gray-700"
             >
-              Tahun
+              Tahun <span className="text-red-500">*</span>
             </label>
             <div className="mt-1">
-              <input
-                type="date"
+              <select
                 id="tahun"
                 className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
-              />
+              >
+                <option value="" disabled selected>
+                  Pilih Tahun
+                </option>
+                {Array.from({ length: 50 }, (_, i) => 2000 + i).map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -41,9 +49,15 @@ const LeDigInputForm: React.FC = () => {
                 <option value="" disabled selected>
                   Pilih Program LE-DIG
                 </option>
-                <option value="Program1">Program 1</option>
-                <option value="Program2">Program 2</option>
-                <option value="Program3">Program 3</option>
+                <option value="Internet Desa">Internet Desa</option>
+                <option value="Aplikasi Wajib Desa">Aplikasi Wajib Desa</option>
+                <option value="Anjungan Desa Mandiri">Anjungan Desa Mandiri</option>
+                <option value="Aplikasi Layanan Desa">Aplikasi Layanan Desa</option>
+                <option value="Website Desa">Website Desa</option>
+                <option value="Kawasan Desa Digital">Kawasan Desa Digital</option>
+                <option value="Aplikasi Indramayu.id">Aplikasi Indramayu.id</option>
+                <option value="Padi Box">Padi Box</option>
+                <option value="AyuTVCC">AyuTVCC</option>
               </select>
             </div>
           </div>
@@ -61,6 +75,7 @@ const LeDigInputForm: React.FC = () => {
                 type="number"
                 id="jumlah"
                 placeholder="Tulis Jumlah Implementasi"
+                min="0"
                 className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
               />
             </div>

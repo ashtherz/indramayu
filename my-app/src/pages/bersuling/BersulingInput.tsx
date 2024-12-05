@@ -17,11 +17,19 @@ const BersulingInputForm: React.FC = () => {
               Tahun <span className="text-red-500">*</span>
             </label>
             <div className="mt-1">
-              <input
-                type="date"
+              <select
                 id="tahun"
                 className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
-              />
+              >
+                <option value="" disabled selected>
+                  Pilih Tahun 
+                </option>
+                {Array.from({ length: 50 }, (_, i) => 2000 + i).map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

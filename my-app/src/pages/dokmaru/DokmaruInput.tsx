@@ -10,7 +10,7 @@ const DokmaruInput: React.FC = () => {
         <form className="space-y-4">
           <div>
             <label htmlFor="tahun" className="block text-sm font-medium text-gray-700">
-              Tahun
+              Tahun <span className="text-red-500">*</span>
             </label>
             <input
               type="date"
@@ -20,7 +20,7 @@ const DokmaruInput: React.FC = () => {
           </div>
           <div>
             <label htmlFor="jenis" className="block text-sm font-medium text-gray-700">
-              Jenis
+              Jenis <span className="text-red-500">*</span>
             </label>
             <select
               id="jenis"
@@ -36,7 +36,7 @@ const DokmaruInput: React.FC = () => {
           </div>
           <div>
             <label htmlFor="jumlah" className="block text-sm font-medium text-gray-700">
-              Jumlah Pasien Terlayani
+              Jumlah Pasien Terlayani <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
