@@ -40,66 +40,74 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
     <div
       className={`Sidebar ${
         isCollapsed ? "w-[80px]" : "w-[260px]"
-      } h-full bg-white border-r border-gray-200 p-4 transition-all duration-300`}
+      } min-h-screen bg-white border-r border-gray-200 p-4 flex flex-col justify-between transition-all duration-300`}
     >
       {/* Profile Section */}
-      <div className="flex items-center gap-4 mb-6">
-        <div
-          className={`rounded-full bg-gray-300 flex justify-center items-center ${
-            isCollapsed ? "w-10 h-10" : "w-12 h-12"
-          }`}
-        >
-        <span className="text-gray-500">
-            <FiUser size={isCollapsed ? 20 : 24} />
-        </span>
-
-        </div>
-        {!isCollapsed && (
-          <div>
-            <h3 className="text-[#01347c] font-semibold">Bambang Pujakesuma</h3>
-            <p className="text-sm text-gray-500">Admin</p>
-            <button
-              onClick={onLogout}
-              className="text-xs text-[#4335d1] hover:underline mt-1"
-            >
-              Log out
-            </button>
+      <div>
+        <div className="flex items-center gap-4 mb-6">
+          <div
+            className={`rounded-full bg-gray-300 flex justify-center items-center ${
+              isCollapsed ? "w-10 h-10" : "w-12 h-12"
+            }`}
+          >
+            <span className="text-gray-500">
+              <FiUser size={isCollapsed ? 20 : 24} />
+            </span>
           </div>
-        )}
+          {!isCollapsed && (
+            <div>
+              <h3 className="text-[#01347c] font-semibold">Bambang Pujakesuma</h3>
+              <p className="text-sm text-gray-500">Admin</p>
+              <button
+                onClick={onLogout}
+                className="text-xs text-[#4335d1] hover:underline mt-1"
+              >
+                Log out
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Toggle Sidebar */}
+        <div className="flex justify-end mb-6">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+          >
+            {isCollapsed ? (
+              <FiChevronRight size={24} />
+            ) : (
+              <FiChevronLeft size={24} />
+            )}
+          </button>
+        </div>
+
+        {/* Menu Items */}
+        <ul className="space-y-4">
+          {menuItems.map((item) => (
+            <li key={item.name} className="flex justify-center">
+              <Link
+                to={item.path}
+                className={`flex items-center gap-4 py-2 px-4 rounded-md text-sm font-medium w-full ${
+                  location.pathname.startsWith(item.path)
+                    ? "bg-[#01347c] text-white"
+                    : "text-gray-700 hover:bg-[#01347c] hover:text-white"
+                }`}
+              >
+                <span className="text-xl">{item.icon}</span>
+                {!isCollapsed && <span>{item.name}</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {/* Toggle Sidebar */}
-      <div className="flex justify-end mb-6">
-            <button
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                className="text-gray-500 hover:text-gray-700 focus:outline-none"
-            >
-                {isCollapsed ? (
-                <FiChevronRight size={24} />
-                ) : (
-                <FiChevronLeft size={24} />
-                )}
-            </button>
-        </div>
-
-      {/* Menu Items */}
-      <ul className="space-y-4">
-        {menuItems.map((item) => (
-          <li key={item.name} className="flex justify-center">
-            <Link
-              to={item.path}
-              className={`flex items-center gap-4 py-2 px-4 rounded-md text-sm font-medium w-full ${
-                location.pathname.startsWith(item.path)
-                  ? "bg-[#01347c] text-white"
-                  : "text-gray-700 hover:bg-[#01347c] hover:text-white"
-              }`}
-            >
-              <span className="text-xl">{item.icon}</span>
-              {!isCollapsed && <span>{item.name}</span>}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {/* Extend Sidebar Line to Fit Page */}
+      <div
+        className={`mt-auto h-1 ${
+          isCollapsed ? "bg-gray-300" : "bg-gray-200"
+        } w-full`}
+      />
     </div>
   );
 };
