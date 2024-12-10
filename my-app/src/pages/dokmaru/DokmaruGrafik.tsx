@@ -144,14 +144,56 @@ const LineChart: React.FC<{ data: any }> = ({ data }) => {
   const chartOptions = {
     series: data.series,
     chart: {
-      type: "line",
+      type: "line", // Line chart
       height: 350,
-      toolbar: { show: true }, // Enable download functionality
+      toolbar: {
+        show: true, // Enable toolbar for download functionality
+      },
+    },
+    stroke: {
+      curve: "smooth", // Smooth lines
+      width: 3, // Line thickness
     },
     xaxis: {
-      categories: data.categories,
+      categories: data.categories, // Use categories for the x-axis
+      labels: {
+        style: {
+          fontSize: "11px",
+          colors: "#333",
+        },
+      },
     },
-    colors: ["#01347c", "#1e56a0", "#6897e7"], // Blue shades
+    colors: ["#01347c", "#1e56a0", "#6897e7"], // Define colors for the lines
+    markers: {
+      size: 5, // Marker size for data points
+      colors: ["#fff"], // Marker fill color
+      strokeColors: ["#01347c", "#1e56a0", "#6897e7"], // Marker border color
+      strokeWidth: 2, // Marker border width
+      hover: {
+        size: 7, // Marker size on hover
+      },
+    },
+    grid: {
+      borderColor: "#e7e7e7",
+      strokeDashArray: 5,
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
+    tooltip: {
+      enabled: true,
+      shared: true, // Tooltip for all series on hover
+      y: {
+        formatter: (val: number) => `${val} Peserta`, // Tooltip formatting
+      },
+    },
   };
 
   const chartContainer = React.useRef<HTMLDivElement>(null);

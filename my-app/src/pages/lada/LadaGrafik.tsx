@@ -147,10 +147,114 @@ const BarChart: React.FC<{ data: any[]; category: string }> = ({ data, category 
 
 const LineChart: React.FC<{ data: any[]; category: string }> = ({ data, category }) => {
   const chartOptions = {
-    series: [{ name: "Nilai (Rp)", data: data.map(item => item.value) }],
-    chart: { type: "line", height: 350 },
-    xaxis: { categories: data.map(item => item.year) },
+    series: [{ 
+      name: "Nilai (Rp)", 
+      data: data.map(item => item.value),
+      // Add styling for the line itself
+      style: {
+        strokeWidth: 3
+      }
+    }],
+    chart: { 
+      type: "area",  // Changed to area type
+      height: 350,
+      toolbar: { 
+        show: true,  // Enable the toolbar for downloading
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      }
+    },
+    stroke: {
+      curve: 'smooth',  // Smooth line curves
+      width: 3  // Thicker line
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.2,
+        stops: [0, 90, 100]
+      }
+    },
+    xaxis: { 
+      categories: data.map(item => item.year),
+      labels: {
+        style: {
+          colors: '#666',
+          fontSize: '12px'
+        }
+      },
+      axisBorder: {
+        show: true,
+        color: '#e0e0e0'
+      },
+      axisTicks: {
+        show: true,
+        color: '#e0e0e0'
+      }
+    },
+    yaxis: {
+      labels: {
+        formatter: (value: number) => 
+          new Intl.NumberFormat("id-ID", { 
+            style: "currency", 
+            currency: "IDR",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          }).format(value),
+        style: {
+          colors: '#666',
+          fontSize: '12px'
+        }
+      }
+    },
     colors: ["#01347c"],
+    grid: {
+      borderColor: '#f1f1f1',
+      strokeDashArray: 4,
+      xaxis: {
+        lines: {
+          show: true
+        }
+      },
+      yaxis: {
+        lines: {
+          show: true
+        }
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    markers: {
+      size: 5,
+      colors: ["#01347c"],
+      strokeColors: "#fff",
+      strokeWidth: 2,
+      hover: {
+        size: 7
+      }
+    },
+    tooltip: {
+      theme: 'light',
+      y: {
+        formatter: (value: number) => 
+          new Intl.NumberFormat("id-ID", { 
+            style: "currency", 
+            currency: "IDR",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          }).format(value)
+      }
+    }
   };
 
   const chartContainer = React.useRef<HTMLDivElement>(null);

@@ -8,29 +8,21 @@ const LeDigInputForm: React.FC = () => {
           Silahkan Lengkapi Form Berikut!
         </h3>
         <form className="space-y-4">
-          {/* Tahun Input */}
+          {/* Tanggal Aduan */}
           <div>
             <label
-              htmlFor="tahun"
+              htmlFor="tanggal"
               className="block text-sm font-medium text-gray-700"
             >
-              Tahun <span className="text-red-500">*</span>
+              Tanggal Aduan <span className="text-red-500">*</span>
             </label>
-            <div className="mt-1">
-              <select
-                id="tahun"
-                className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
-              >
-                <option value="" disabled selected>
-                  Pilih Tahun
-                </option>
-                {Array.from({ length: 50 }, (_, i) => 2000 + i).map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <input
+              type="date"
+              id="tanggal"
+              className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
+              placeholder="Pilih Tanggal Aduan"
+              required
+            />
           </div>
 
           {/* Program LE-DIG Input */}

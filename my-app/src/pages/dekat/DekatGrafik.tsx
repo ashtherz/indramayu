@@ -117,18 +117,138 @@ const LineChart: React.FC<{ data: typeof dekatData }> = ({ data }) => {
       },
     ],
     chart: {
-      type: "line",
+      type: "area",
       height: 350,
-      toolbar: { show: true }, // Enable download functionality
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        },
+      },
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    },
+    stroke: {
+      curve: "smooth",
+      width: 3,
+      colors: ["#01347c"], // Line color
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        shade: "light",
+        type: "vertical", // Apply a vertical gradient
+        shadeIntensity: 0.5,
+        gradientToColors: ["#d4e4ff"], // Gradient transition to light blue
+        opacityFrom: 0.7,
+        opacityTo: 0.1,
+        stops: [0, 100], // Gradient stops at 0% and 100%
+      },
+    },
+    dataLabels: {
+      enabled: false,
     },
     xaxis: {
-      categories: data.map((item) => item.year),
+      categories: data.map((item) => item.year), // Use `year` for x-axis
+      labels: {
+        style: {
+          colors: "#333",
+          fontSize: "11px",
+        },
+        rotate: -45,
+        offsetY: 10,
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
     },
-    colors: ["#01347c"],
+    yaxis: {
+      tickAmount: 5, // Number of ticks on the y-axis
+      labels: {
+        style: {
+          colors: "#666",
+          fontSize: "12px",
+        },
+      },
+    },
+    colors: ["#01347c"], // Primary chart color
+    grid: {
+      borderColor: "#f1f1f1",
+      strokeDashArray: 5,
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      padding: {
+        top: 20,
+      },
+    },
+    markers: {
+      size: 5,
+      colors: ["#fff"],
+      strokeColors: "#01347c",
+      strokeWidth: 2,
+      hover: {
+        size: 7,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      y: {
+        formatter: (val: number) =>
+          new Intl.NumberFormat("id-ID", {
+            style: "decimal",
+          }).format(val),
+      },
+    },
+    annotations: {
+      points: data.map((item) => ({
+        x: item.year, // Use `year` for annotation
+        y: item.value,
+        marker: {
+          size: 0,
+        },
+        label: {
+          borderColor: "#01347c",
+          borderWidth: 0,
+          borderRadius: 2,
+          text: item.value.toString(),
+          position: "top",
+          textAnchor: "middle",
+          offsetY: -15,
+          style: {
+            background: "#01347c",
+            color: "#fff",
+            fontSize: "11px",
+            fontWeight: "bold",
+            padding: {
+              left: 8,
+              right: 8,
+              top: 2,
+              bottom: 2,
+            },
+          },
+        },
+      })),
+    },
   };
 
   const chartContainer = React.useRef<HTMLDivElement>(null);
-
   React.useEffect(() => {
     if (chartContainer.current) {
       const chart = new ApexCharts(chartContainer.current, chartOptions);
@@ -139,6 +259,7 @@ const LineChart: React.FC<{ data: typeof dekatData }> = ({ data }) => {
 
   return <div ref={chartContainer}></div>;
 };
+
 
 const PieChart: React.FC<{ data: typeof dekatData }> = ({ data }) => {
   const chartOptions = {

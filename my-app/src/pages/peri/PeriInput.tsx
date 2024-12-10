@@ -13,7 +13,7 @@ const PeriInput: React.FC = () => {
               htmlFor="tahun"
               className="block text-sm font-medium text-gray-700"
             >
-              Tahun <span className="text-red-500">*</span>
+              Tanggal Aduan <span className="text-red-500">*</span>
             </label>
             <input
               type="date"

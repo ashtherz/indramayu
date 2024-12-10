@@ -160,20 +160,66 @@ const BarChart: React.FC<{ data: ProcessedData }> = ({ data }) => {
 
 const LineChart: React.FC<{ data: ProcessedData }> = ({ data }) => {
   const chartOptions = {
-    series: data.series,
+    series: data.series, // The series data
     chart: {
-      type: "line",
+      type: "line", // Line chart type
       height: 350,
-      toolbar: { show: true }, // Enable toolbar for download
+      toolbar: {
+        show: true, // Enable toolbar for download and interaction
+      },
     },
     stroke: {
-      curve: "smooth",
-      width: 3,
+      curve: "smooth", // Smooth curve for the lines
+      width: 3, // Thickness of the lines
     },
     xaxis: {
-      categories: data.categories,
+      categories: data.categories, // X-axis categories
+      labels: {
+        style: {
+          fontSize: "11px",
+          colors: "#333", // X-axis label color
+        },
+      },
     },
-    colors: ["#01347c", "#1e56a0", "#3978cc"],
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "12px",
+          colors: "#666", // Y-axis label color
+        },
+      },
+    },
+    colors: ["#01347c", "#1e56a0", "#3978cc"], // Line colors for each series
+    markers: {
+      size: 5, // Marker size at data points
+      colors: ["#fff"], // Marker fill color
+      strokeColors: ["#01347c", "#1e56a0", "#3978cc"], // Border color for each marker
+      strokeWidth: 2, // Marker border width
+      hover: {
+        size: 7, // Enlarged marker size on hover
+      },
+    },
+    grid: {
+      borderColor: "#e7e7e7",
+      strokeDashArray: 5, // Dashed gridlines
+      xaxis: {
+        lines: {
+          show: true, // Show vertical gridlines
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true, // Show horizontal gridlines
+        },
+      },
+    },
+    tooltip: {
+      enabled: true,
+      shared: true, // Shared tooltip for all series on the hovered point
+      y: {
+        formatter: (val: number) => `${val} Peserta`, // Tooltip formatting
+      },
+    },
   };
 
   const chartContainer = React.useRef<HTMLDivElement>(null);
@@ -188,6 +234,7 @@ const LineChart: React.FC<{ data: ProcessedData }> = ({ data }) => {
 
   return <div ref={chartContainer}></div>;
 };
+
 
 const PieChart: React.FC<{ data: ProcessedData }> = ({ data }) => {
   // Calculate total participants for the pie chart

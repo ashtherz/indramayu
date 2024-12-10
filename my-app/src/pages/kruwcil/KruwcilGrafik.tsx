@@ -123,26 +123,149 @@ const BarChart: React.FC<{ data: typeof chartData }> = ({ data }) => {
 
 const LineChart: React.FC<{ data: typeof chartData }> = ({ data }) => {
   const chartOptions = {
-    series: [{ name: "Jumlah", data: data.map((item) => item.jumlah) }],
+    series: [
+      {
+        name: "Jumlah",
+        data: data.map((item) => item.jumlah),
+      },
+    ],
     chart: {
-      type: "line",
+      type: "area", // Switch to area chart for gradient
       height: 350,
-      toolbar: { show: true }, // Enable toolbar for download
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        },
+      },
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     },
     stroke: {
-      curve: "smooth",
+      curve: "smooth", // Smooth curves
       width: 3,
+      colors: ["#01347c"], // Line color
+    },
+    fill: {
+      type: "gradient", // Gradient under the line
+      gradient: {
+        shade: "light",
+        type: "vertical",
+        shadeIntensity: 0.5,
+        gradientToColors: ["#d4e4ff"], // Transition to light blue
+        opacityFrom: 0.7,
+        opacityTo: 0.1,
+        stops: [0, 100],
+      },
+    },
+    dataLabels: {
+      enabled: false, // Hide default labels
     },
     xaxis: {
-      categories: data.map((item) => item.year),
-    },
-    colors: ["#01347c"],
-    dataLabels: {
-      enabled: true,
-      formatter: (_: number, opt: { dataPointIndex: number }) => {
-        const nilai = data[opt.dataPointIndex].nilai;
-        return `Rp ${(nilai / 1000000000).toFixed(1)} M`;
+      categories: data.map((item) => item.year), // Use year as x-axis
+      labels: {
+        style: {
+          colors: "#333",
+          fontSize: "11px",
+        },
+        rotate: -45,
+        offsetY: 10,
       },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      tickAmount: 5, // Adjust ticks dynamically
+      min: 0,
+      labels: {
+        style: {
+          colors: "#666",
+          fontSize: "12px",
+        },
+      },
+    },
+    colors: ["#01347c"], // Line color
+    grid: {
+      borderColor: "#f1f1f1",
+      strokeDashArray: 5,
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      padding: {
+        top: 20,
+      },
+    },
+    markers: {
+      size: 5,
+      colors: ["#fff"],
+      strokeColors: "#01347c",
+      strokeWidth: 2,
+      hover: {
+        size: 7,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      shared: true,
+      y: {
+        formatter: (val: number, opt: { dataPointIndex: number }) => {
+          const nilai = data[opt.dataPointIndex].nilai;
+          return `Rp ${new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(nilai)}`;
+        },
+      },
+    },
+    annotations: {
+      points: data.map((item) => ({
+        x: item.year,
+        y: item.jumlah,
+        marker: {
+          size: 0,
+        },
+        label: {
+          borderColor: "#01347c",
+          borderWidth: 0,
+          borderRadius: 2,
+          text: `${item.jumlah} (${(
+            item.nilai / 1000000000
+          ).toFixed(1)} M)`,
+          position: "top",
+          textAnchor: "middle",
+          offsetY: -15,
+          style: {
+            background: "#01347c",
+            color: "#fff",
+            fontSize: "11px",
+            fontWeight: "bold",
+            padding: {
+              left: 8,
+              right: 8,
+              top: 2,
+              bottom: 2,
+            },
+          },
+        },
+      })),
     },
   };
 
@@ -158,6 +281,7 @@ const LineChart: React.FC<{ data: typeof chartData }> = ({ data }) => {
 
   return <div ref={chartContainer}></div>;
 };
+
 
 const PieChart: React.FC<{ data: typeof chartData }> = ({ data }) => {
   const chartOptions = {

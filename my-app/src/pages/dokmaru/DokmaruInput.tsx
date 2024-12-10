@@ -8,14 +8,20 @@ const DokmaruInput: React.FC = () => {
           Silahkan Lengkapi Form Berikut!
         </h3>
         <form className="space-y-4">
+          {/* Tanggal Aduan */}
           <div>
-            <label htmlFor="tahun" className="block text-sm font-medium text-gray-700">
-              Tahun <span className="text-red-500">*</span>
+            <label
+              htmlFor="tanggal"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Tanggal Aduan <span className="text-red-500">*</span>
             </label>
             <input
               type="date"
-              id="tahun"
+              id="tanggal"
               className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-[#01347c] focus:border-[#01347c] sm:text-sm"
+              placeholder="Pilih Tanggal Aduan"
+              required
             />
           </div>
           <div>

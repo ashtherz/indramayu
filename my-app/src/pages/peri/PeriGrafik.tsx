@@ -129,18 +129,76 @@ const LineChart: React.FC<{ data: typeof periData }> = ({ data }) => {
       },
     ],
     chart: {
-      type: "line",
+      type: "area", // Switch to area for gradient styling
       height: 350,
-      toolbar: { show: true }, // Enable toolbar for download/export
+      toolbar: {
+        show: true, // Enable toolbar for downloading/export
+      },
     },
     stroke: {
-      curve: "smooth",
-      width: 3,
+      curve: "smooth", // Smooth curves
+      width: 3, // Line thickness
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        shade: "light",
+        type: "vertical", // Vertical gradient flow
+        shadeIntensity: 0.5,
+        gradientToColors: ["#d4e4ff"], // Transition to light blue
+        opacityFrom: 0.7,
+        opacityTo: 0.1,
+        stops: [0, 100], // Gradient stops at 0% and 100%
+      },
     },
     xaxis: {
-      categories: data.map((item) => item.year),
+      categories: data.map((item) => item.year), // X-axis years
+      labels: {
+        style: {
+          fontSize: "12px",
+          colors: "#333",
+        },
+      },
     },
-    colors: ["#01347c"],
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "12px",
+          colors: "#666",
+        },
+      },
+    },
+    colors: ["#01347c"], // Line color
+    markers: {
+      size: 5, // Marker size for data points
+      colors: ["#fff"], // Marker fill color
+      strokeColors: "#01347c", // Marker border color
+      strokeWidth: 2, // Marker border width
+      hover: {
+        size: 7, // Marker size on hover
+      },
+    },
+    grid: {
+      borderColor: "#f1f1f1",
+      strokeDashArray: 5, // Dashed grid lines
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
+    tooltip: {
+      enabled: true,
+      shared: true, // Shared tooltip for all series on the same point
+      y: {
+        formatter: (val: number) => `${val} Peserta`, // Tooltip format
+      },
+    },
   };
 
   const chartContainer = React.useRef<HTMLDivElement>(null);
@@ -155,6 +213,7 @@ const LineChart: React.FC<{ data: typeof periData }> = ({ data }) => {
 
   return <div ref={chartContainer}></div>;
 };
+
 
 const PieChart: React.FC<{ data: typeof periData }> = ({ data }) => {
   const chartOptions = {
