@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import background from "../images/background.svg";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import AnimatedBackground from "../components/AnimatedBackground"; // Assuming you've saved the AnimatedBackground component
+import background from "../images/background.svg";
 import {
   FaTruck,
   FaChartBar,
@@ -46,7 +47,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
             <div className="text-[#01347c] text-4xl">{icon}</div>
           </div>
           <div className="p-2 flex justify-center">
-            <div className="text-[#01347c] text-sm font-bold font-['Arial'] uppercase">
+            <div className="text-[#01347c] text-sm font-bold font-['Arial'] uppercase text-center">
               {title}
             </div>
           </div>
@@ -155,30 +156,27 @@ const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="Dashboard w-full min-h-screen flex flex-col bg-white font-['Arial']">
+    <div className="Dashboard w-full min-h-screen flex flex-col bg-white font-['Arial'] relative overflow-hidden">
+      {/* <AnimatedBackground /> */}
       <Header />
 
       <div className="flex flex-1">
         <Sidebar onLogout={() => navigate("/")} />
 
         <main className="flex-1 relative">
-          <div className="px-[156px] pt-[136px] pb-12">
-            <h1 className="text-[#01347c] text-[50px] font-bold capitalize leading-[21px] mb-[70px]">
+          <div className="px-[80px] pt-[80px] pb-12">
+            <h1 className="text-[#01347c] text-[40px] font-bold capitalize leading-[1.2] mb-[50px]">
               Portal 10 Program Unggulan
-              <br />
-              <br />
               <br />
               Pemerintah Kabupaten Indramayu
             </h1>
 
-            <div className="flex justify-between">
-              <div className="mt-[30px]">
-                <p className="text-[#01347c] text-[25px] font-bold capitalize leading-[21px]">
-                  Selamat datang
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-10">
+              <div>
+                <p className="text-[#01347c] text-[18px] font-medium capitalize leading-[1.5] pt-10">
+                  Selamat datang di Situs Resmi
                   <br />
-                  <br />
-                  di Situs Resmi Portal 10 Program Unggulan
-                  <br />
+                  Portal 10 Program Unggulan
                   <br />
                   Pemerintah Kabupaten Indramayu
                 </p>
@@ -187,12 +185,12 @@ const DashboardPage: React.FC = () => {
               <img
                 src={background}
                 alt="Dashboard illustration"
-                className="w-[627px] h-[347px]"
+                className="w-[300px] lg:w-[500px] h-auto"
               />
             </div>
 
             {/* Program Cards Grid */}
-            <div className="grid grid-cols-5 gap-x-6 gap-y-12 mt-[60px]">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-[40px]">
               {programs.map((program, index) => (
                 <ProgramCard key={index} {...program} />
               ))}

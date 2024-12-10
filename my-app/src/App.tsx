@@ -12,6 +12,7 @@ import KruwcilPage from "./pages/kruwcil/KruwcilPage";
 import JaketPage from "./pages/jaket/JaketPage";
 import PeriPage from "./pages/peri/PeriPage";
 import AlurPage from "./pages/alur/AlurPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
         <Route path="/jaket/*" element={<JaketPage />} />
         <Route path="/peri/*" element={<PeriPage />} />
         <Route path="/alur/*" element={<AlurPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
