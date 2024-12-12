@@ -38,7 +38,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               id="email"
               name="email"
               type="email"
-              placeholder="yourmum@gmail.com"
+              placeholder="youremail@gmail.com"
               className="w-full mt-2 p-2 border border-[#dedede] rounded focus:outline-none"
               required
             />
@@ -51,7 +51,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               id="password"
               name="password"
               type="password"
-              placeholder="password yum >:)"
+              placeholder="password"
               className="w-full mt-2 p-2 border border-[#dedede] rounded focus:outline-none"
               required
             />
